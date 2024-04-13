@@ -3,5 +3,20 @@ services:
     build:
       context: .
       dockerfile: docker_compose/admin.Dockerfile
+    environment:
+      DB_HOST: "pg_db"
     ports:
       - "8000:8000"
+    depends_on:
+      - pg_db
+
+  pg_db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: "movies_database"
+      POSTGRES_USER: "app"
+      POSTGRES_PASSWORD: "123qwe"
+    volumes:
+      - $HOME/postgresql/data2:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
