@@ -1,5 +1,17 @@
-FROM my_python_base_image
+FROM python:3.11
 
-COPY my_app.py ./
+WORKDIR /opt/app
 
-CMD ["python3", "my_app.py"]
+ENV DJANGO_SETTINGS_MODULE 'config.settings'
+
+
+COPY requirements requirements
+
+RUN  pip install --upgrade pip \
+     && pip install -r requirements
+
+COPY ./docker_compose .
+
+EXPOSE 8000
+
+ENTRYPOINT ["python", "manage.py", "runserver"]

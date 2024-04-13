@@ -17,7 +17,7 @@ gen-migrate:
 	$(VENV)/bin/python movies_admin/manage.py makemigrations movies --settings=config.settings
 
 run:
-	$(VENV)/bin/python movies_admin/manage.py runserver
+	$(VENV)/bin/python docker_compose/manage.py runserver
 
 lint:
 	$(VENV)/bin/isort $(LINT_DIRS) --skip $(EXCLUDE_DIRS)
