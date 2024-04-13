@@ -1,0 +1,7 @@
+services:
+  admin_panel:
+    build:
+      context: .
+      dockerfile: docker_compose/admin.Dockerfile
+    ports:
+      - "8000:8000"
