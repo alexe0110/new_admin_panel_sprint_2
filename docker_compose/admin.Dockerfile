@@ -2,6 +2,7 @@ FROM python:3.11
 
 WORKDIR /opt/app
 
+ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE 'config.settings'
 
 
@@ -14,4 +15,4 @@ COPY ./docker_compose .
 
 EXPOSE 8000
 
-ENTRYPOINT ["python", "manage.py", "runserver"]
+ENTRYPOINT ["./run_gunicorn.sh"]
