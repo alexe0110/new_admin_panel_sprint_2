@@ -11,7 +11,7 @@ COPY requirements requirements
 RUN  pip install --upgrade pip \
      && pip install -r requirements
 
-COPY ./docker_compose .
+COPY . .
 
 RUN python manage.py collectstatic --noinput
 

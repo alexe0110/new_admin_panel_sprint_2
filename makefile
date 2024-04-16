@@ -11,13 +11,13 @@ install:
 
 migrate:
 	psql -h 127.0.0.1 -U app -d movies_database -c 'CREATE SCHEMA IF NOT EXISTS content;'
-	$(VENV)/bin/python docker_compose/manage.py migrate
+	$(VENV)/bin/python manage.py migrate
 
 gen-migrate:
 	$(VENV)/bin/python movies_admin/manage.py makemigrations movies --settings=config.settings
 
 run:
-	$(VENV)/bin/python docker_compose/manage.py runserver
+	$(VENV)/bin/python manage.py runserver
 
 docker-run:
 	docker-compose up -d --build

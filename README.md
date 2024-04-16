@@ -19,8 +19,7 @@
 
 ### Запуск:
 
-    docker-compose build
-    docker-compose up -d
+    make docker-run
 
 ### Миграции(если нужно):
     

@@ -33,6 +33,7 @@ include(
     "components/templates.py",
     "components/auth_password_validators.py",
     "components/database.py",
+    "components/logging_settings.py",
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
