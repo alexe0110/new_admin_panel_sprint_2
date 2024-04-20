@@ -1,16 +1,40 @@
+from django.contrib.postgres.aggregates import ArrayAgg
+from django.db.models import Q, QuerySet
 from django.http import JsonResponse
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.list import BaseListView
 
-from movies.models import FilmWork
+from movies.models import FilmWork, PersonFilmWork
 
 
 class MoviesApiMixin:
     model = FilmWork
     http_method_names = ["get"]
 
-    def get_queryset(self):
-        return ["das", "dascxxx", "djgysys"]
+    def get_queryset(self) -> QuerySet:
+        result = FilmWork.objects.prefetch_related("genres", "persons").values(
+            "id", "title", "description", "creation_date", "rating", "type"
+        )
+
+        annotated_result = result.annotate(
+            genres=ArrayAgg("genres__name", distinct=True),
+            actors=ArrayAgg(
+                "persons__full_name",
+                distinct=True,
+                filter=Q(personfilmwork__role=PersonFilmWork.RoleType.ACTOR),
+            ),
+            directors=ArrayAgg(
+                "persons__full_name",
+                distinct=True,
+                filter=Q(personfilmwork__role=PersonFilmWork.RoleType.DIRECTOR),
+            ),
+            writers=ArrayAgg(
+                "persons__full_name",
+                distinct=True,
+                filter=Q(personfilmwork__role=PersonFilmWork.RoleType.WRITER),
+            ),
+        )
+        return annotated_result
 
     def render_to_response(self, context, **response_kwargs):
         return JsonResponse(context)
@@ -36,4 +60,4 @@ class MoviesListApi(MoviesApiMixin, BaseListView):
 
 class MoviesDetailApi(MoviesApiMixin, BaseDetailView):
     def get_context_data(self, **kwargs):
-        return  # Словарь с данными объекта
+        return kwargs["object"]
