@@ -8,15 +8,12 @@ install:
 	$(VENV)/bin/pip config --site set global.extra-index-url https://pypi.org/simple/
 	$(VENV)/bin/pip install -r requirements
 
-lint:
-	$(VENV)/bin/isort $(LINT_DIRS) --skip $(EXCLUDE_DIRS)
-	$(VENV)/bin/black $(LINT_DIRS) -l $(LINE_LENGTH) --exclude $(EXCLUDE_DIRS)
-	$(VENV)/bin/flake8 --max-line-length $(LINE_LENGTH) --statistics --show-source $(LINT_DIRS) --exclude $(EXCLUDE_DIRS)
 
 plint:
 	$(VENV)/bin/ruff format $(LINT_DIRS)
 	$(VENV)/bin/ruff check $(LINT_DIRS) --fix --show-fixes
-	# $(VENV)/bin/mypy --install-types --non-interactive --namespace-packages --explicit-package-bases $(LINT_DIRS)
+	$(VENV)/bin/mypy --install-types --non-interactive --namespace-packages \
+	    --explicit-package-bases $(LINT_DIRS) --disable-error-code import-untyped --exclude movies/migrations
 
 
 migrate:
