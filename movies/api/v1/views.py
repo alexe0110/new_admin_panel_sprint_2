@@ -1,8 +1,3 @@
-from django.views.generic.list import BaseListView
-from django.views.generic.detail import BaseDetailView
-from django.views.generic import TemplateView
-from django.contrib.postgres.aggregates import ArrayAgg
-from django.db.models import Q
 from django.http import JsonResponse
 from django.views.generic.list import BaseListView
 
@@ -11,20 +6,20 @@ from movies.models import FilmWork
 
 class MoviesListApi(BaseListView):
     model = FilmWork
-    http_method_names = ['get']  # Список методов, которые реализует обработчик
+    http_method_names = ["get"]  # Список методов, которые реализует обработчик
 
     def get_queryset(self):
         """
         Должен возвращать подготовленный QuerySet
         """
-        return ['das','dascxxx','djgysys']
+        return ["das", "dascxxx", "djgysys"]
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """
         Возвращает словарь с данными для формирования страницы;
         """
         context = {
-            'results': list(self.get_queryset()),
+            "results": list(self.get_queryset()),
         }
         return context
 
@@ -34,4 +29,3 @@ class MoviesListApi(BaseListView):
         """
 
         return JsonResponse(context)
-

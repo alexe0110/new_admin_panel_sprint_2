@@ -40,7 +40,7 @@ include(
 # DEBUG=True
 DEBUG = os.environ.get("DEBUG", False)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 ROOT_URLCONF = "config.urls"
 
@@ -59,8 +59,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -74,4 +74,6 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:8080",]
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8080",
+]
