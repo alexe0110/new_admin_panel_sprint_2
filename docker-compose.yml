@@ -34,3 +34,13 @@ services:
       - admin_panel
     ports:
       - "80:80"
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    volumes:
+      - ./django_api/openapi.yaml:/swagger.yaml
+    environment:
+      - SWAGGER_JSON=/swagger.yaml
+    ports:
+      - "8080:8080"
+
