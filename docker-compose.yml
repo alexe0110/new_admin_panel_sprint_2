@@ -10,6 +10,8 @@ services:
       DB_HOST: "pg_db"
     volumes:
       - static_volume:/opt/app/static
+    ports:
+      - "8000:8000"
     depends_on:
       - pg_db
 
