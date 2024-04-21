@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.list import BaseListView
 
+from movies.api.v1.models import MoviesListApiResponse
 from movies.models import FilmWork, PersonFilmWork
 
 
@@ -45,17 +46,18 @@ class MoviesListApi(MoviesApiMixin, BaseListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         """
-        Возвращает словарь с данными для формирования страницы;
+        Возвращает словарь с данными
         """
         queryset = self.get_queryset()
         paginator, page, queryset, is_paginated = self.paginate_queryset(queryset, self.paginate_by)
-        return {
-            "count": paginator.count,
-            "total_pages": paginator.num_pages,
-            "prev": page.previous_page_number() if page.has_previous() else None,
-            "next": page.next_page_number() if page.has_next() else None,
-            "results": list(queryset),
-        }
+
+        return MoviesListApiResponse(
+            count=paginator.count,
+            total_pages=paginator.num_pages,
+            prev=page.previous_page_number() if page.has_previous() else None,
+            next=page.next_page_number() if page.has_next() else None,
+            results=list(queryset),
+        ).model_dump()
 
 
 class MoviesDetailApi(MoviesApiMixin, BaseDetailView):
