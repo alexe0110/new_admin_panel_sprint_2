@@ -26,3 +26,5 @@
     make migrate
 
 Админка будет доступна по адресу: http://localhost/admin
+
+Сваггер http://127.0.0.1:8080/
