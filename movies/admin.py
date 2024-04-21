@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+
 from movies.models import FilmWork, Genre, GenreFilmWork, Person, PersonFilmWork
 
 
@@ -35,7 +36,7 @@ class FilmWorkAdmin(admin.ModelAdmin):
     def get_genres(self, obj):
         return ",".join([genre.name for genre in obj.genres.all()])
 
-    get_genres.short_description = _("Жанры фильма")
+    get_genres.short_description = _("Жанры фильма")  # type: ignore [attr-defined]
 
     # Отображение полей в списке
     list_display = ("title", "type", "creation_date", "rating", "get_genres")
